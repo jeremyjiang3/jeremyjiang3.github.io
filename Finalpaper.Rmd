@@ -1,0 +1,1074 @@
+---
+title             : "Price Comparison on Various Automobile Characteristics "
+shorttitle        : "Midterm2 Paper"
+
+author: 
+  - name          : "Sheng (Jeremy) Jiang"
+    
+ 
+
+
+
+
+
+
+
+
+abstract: |
+
+  **Background:**\
+  For centuries, the evolution of technology has driven the development of the automobile industry. With increasing in automobile mass production, the automobile is becoming a key component in modern life as it blurred social class distinctions, expanded markets, and stimulated the economy. Buying a car has always been a part of the whole life that everyone went through or experiencing now.  But how automobile industry determined their car price in terms of car’s characteristics remained ambiguous.\
+  **Aims:**
+  The aim of this observational study is to estimate the average car price in the industry and find the basic pattern of automobile characteristics with association to its price.This study particularly focuses on the following car characteristics: drive wheel mode, aspiration and body style. The scope of this observational study will be based on Automobile dataset compiled by Jeffrey C. Schlimmer.  \
+  **Methods:**\
+  Sampling Strategy:The original dataset of this study comes from UCI Machine Learning Repository. It was compiled by Jeffrey C. Schlimmer from 1985 Model Import Car and Truck Specifications, 1985 Ward's Automotive Yearbook, Personal Auto Manuals, Insurance Services Office, and Insurance Collision Report, Insurance Institute for Highway Safety. There were some limitations on the sampling strategy since the dataset only focused on the year 1985.These resources Schlimer found may not have enough coverage for the entire target population at that period which may lead to selection bias. In this observational study, analyst uses this dataset for price comparison on various automobile characteristics. But there may be confounding factors like currency fluctuation and auto companies’ transformation that can affect the automobile price dramatically. \
+  **Results:**
+  Exploratory Analysis: This study performed plots to visually show the car price distribution in terms of body styles, drive wheels and aspiration types.From the graphs and data summary, the whole dataset is right skewed at lower price （mean=13207 median=10295). Rear wheel drive cars tend to have relative higher car price than other types of drive wheels, while constitutes 37.3% of the dataset. Convertible (mean=17084.5)and hardtop (19687.5)are releative expensive than other cars, while convertible, hardtop have disperse price distributions.Hactchback and sedan constitute 33.8% and 46.8% of the dataset. For aspiration types, most cars are standard type, which constitutes 82.1% of dataset.\
+  Statistic Analysis: There are five tests in this study.At the significant level $\alpha=0.05$and with a 95% confidence,Test 1 suggests the true mean car price in 1985 is between $12101.8 and $14312.46 which is greater than $7000 estimate mean price from research. Test 2 fails to prove the true proportion of rear wheel drive cars is greater than 0.3333, but between 0.3162255 and 1. Test 3 indicates that true mean price for turbo cars is greater than standard cars (CI:1257.027 to 5328.797). In the further study at Test 4 on comparison of  the true proportion of turbo type between luxury cars and economy cars.Turbo cars in luxury class population has a higher proportion than turbo cars in economy class population (CI:0.07224941 to 0.30527772).Finally at Test 5, analyst finds not all true proportion of body styles are evenly distributed in whole car population. \
+  
+  **Conclusion:**
+  These findings on automobile price, and its characteristics in 1985 are highly based on dataset from Jeffrey C. Schlimmer on limited sources. This study firstly suggests that the average car price was greater than the estimate mean price $7000 in 1980s.Secondly, proportion of rear wheel drive cars was equal to the other two drive wheel cars.  In addition, price of turbo aspiration car was significantly higher than standard aspiration cars, and turbo aspiration car took a greater percentage in luxury class population than economy class population. Finally, the availability of different body style cars was different.  But this study may have limitations due to confounding factors, potential biases, and limited sources so that this topic needs to be further explored.\
+
+
+
+  
+ 
+  <!-- https://tinyurl.com/ybremelq -->
+
+
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_word
+---
+
+
+```{r setup, include = FALSE}
+# Install devtools package if necessary
+#if(!"devtools" %in% rownames(installed.packages())) install.packages("devtools")
+
+# Install the stable development verions from GitHub
+#devtools::install_github("crsh/papaja")
+
+# Install the latest development snapshot from GitHub
+#devtools::install_github("crsh/papaja@devel")
+library("papaja")
+```
+```{r setep,include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(0)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+# Introduction 
+For centuries, the evolution of technology has driven the development of the automobile industry. With increasing in automobile mass production, the automobile is becoming a key component in modern life as it blurred social class distinctions, expanded markets, and stimulated the economy. Buying a car has always been a part of the whole life that everyone went through or experiencing now.  And automobile development over the years has always been the symbol of technology evolution that draws attention to everyone. While driving the car,people always appreciate the emergence of new car features like hybrid fuel type,electric charging and automation driving mode.  But how automobile industry determined their car price in terms of car’s characteristics remained ambiguous.\
+What features of automobile have significant influences on car total price has been an interest to car buyers and car owners. Analyst of this study is like others as outsiders of automobile industry seek to figure out how these insiders price car in terms of car’s characteristics. So by having this observational study on automobile dataset for cars in 1985, analyst could help car customers nowadays by providing buying guide to select optimized car in 1985. Analyst can also find the trend of car features in 1985 to estimate what car features are most popular nowadays.\ 
+This observational study is designed to:
+*Estimate the average car price in the industry in 1985.\
+*Find the basic pattern of automobile characteristics with association to its price.\
+This study particularly focuses on the following car characteristics: drive wheel mode, aspiration and body style. The scope of this observational study will be based on the year 1985 where the collected Automobile dataset focused on.\  
+The goal of this observational study is to provide estimations for these questions below:
+What is the average car price in 1985?\
+*How rear wheel drive cars distributed in whole car population in 1985?\
+*Is there a difference in price between turbo and standard car in 1985?\
+*How turbo aspiration cars distributed in luxury class compared to economy class in 1985?\
+*Are certain body style more prefered than others in 1985?\
+
+    
+    
+## Variable Definition:
+**Price** \
+Definition:Price is the most important variable for this study. The price column from dataset states car total price for each car.  Analyst converts this variable into numeric to better perform analysis in the next step. \
+*Type: Numeric Variable in decimal; Response Variable; Quantitative Continuous Variable.\
+*Scale: Price values range from 5118 to 45400 per car.\
+**Wheel drive**\
+Definition: Wheel drive is one of the car characteristics. Wheel drive has three modes: front wheel drive, rear wheel drive, and four wheel drive.Each car has to have only one of these three drive wheel modes. In order to perform statistical analysis, analyst will group front wheel drive and four wheel drive into one category called front and four wheel drive.\
+*Type: Categories Variable; Explanatory Variable; Discrete Variable.\
+*Scale: Wheel drive has only 3 categories: fwd,rwd and 4wd and in statistical analysis we group fwd and 4wd into a single group called fwd(front and four wheel drive). So wheel drive will either be rwd or fwd.\
+
+**Aspiration**\
+Definition: Aspiration is one of the car characteristics. Aspiration has two types: turbo and standard. Each car can only has one and only aspiration type. \
+*Type: Categories Variable; Explanatory Variable; Discrete Variable.\
+*Scale: Aspiration has only 2 categories: turbo and standard. Car aspiration either to be turbo or standard.\
+
+**Body style**\
+Definition: Car has many body style which could influence the car price.  Body style has five general categories:convertible, hardtop, hatchback, sedan, and wagon.Each car can only has one and only body style.\
+*Type: Categories Variable; Explanatory Variable; Discrete Variable.\
+*Scale: Body style has 5 general categories: convertible, hardtop, hatchback, sedan, and wagon. Each car must be in one of these 5 body styles.\
+**Car class**\
+Definition: This study created car class variable based on car price values with comparison of dataset's mean car price. Cars under price $\$13207$ will be economy class, while cars over price $\$13207$ will be luxury class.\   
+*Type: Categories Variable; Explanatory Variable; Discrete Variable.\
+*Scale: Each car must be in either economy class or luxury class. \
+
+
+
+## Methods
+Target population for this study:  The entire automobile population in 1985. 
+Sampling Size: 201 data points.\
+
+
+**Sampling Strategy: **\
+  This study modifies the original dataset from UCI Machine Learning Repository. The original dataset was compiled by Jeffrey C. Schlimmer from 1985 Model Import Car and Truck Specifications, 1985 Ward's Automotive Yearbook, Personal Auto Manuals, Insurance Services Office, and Insurance Collision Report, Insurance Institute for Highway Safety. In this study, “Symboling” and “normalized losses” as these were introduced for insurance rating purposes in Schlimmer’s study and are not meaningful to this study’s topic. Before preparing the dataset, there are rows with missing values and several wrong data type. \
+Limitations: \
+*The dataset only focused on the year 1985. From the datasetSchlimmer provided, it’s not clear what year of car was produced and into the market which may lead to __information bias__ in this study.\ 
+*These resources Schlimer found may not have enough coverage for the entire target population at that period which may lead to __selection bias__. \
+*In this observational study, analyst uses this dataset for price comparison on various automobile characteristics. But there may be __confounding factors__ like currency fluctuation and auto companies’ transformation that can affect the automobile price dramatically. \
+
+**Data Prepartion:** \
+1. Analyst removes the “Symboling” and “normalized losses” from the dataset since these were introduced for insurance rating purposes in Schlimmer’s study and are irrelevant to this study’s topic.\
+2. Analyst removes  rows with missing values and convert several  data types from string into numeric data.\
+3. Analyst create a column called “Car class” based on car price values. By comparing each car price from dataset to average car price of dataset , analyst is able to prepare data points into two car class categories: economy and luxury. Price under $\$13207$ will be economy class while price over $\$13207$ will be luxury class. 
+
+
+# Analysis 
+```{r}
+
+library(ggplot2)  
+library(dplyr)          # data manipulation
+library(mosaic)
+library(Sleuth3)
+library(dplyr)
+```
+
+## Explortary Analysis
+```{r pressure, echo=FALSE}
+auto.data <- read.csv( "~/Documents/IE6200/Final/imports-85.data.csv",header = TRUE, stringsAsFactors = FALSE)
+
+summary(auto.data)
+```
+
+
+
+
+Table 1.
+
+```{r}
+table1to3<-table(auto.data$body.style,auto.data$drive.wheels,auto.data$aspiration)
+addmargins(table1to3)
+```
+Table 1 to 3 collection demonstrates data points distributions in three aspects:body style,drive wheels and aspiration. In dataset, there are more standard (165) than turbo (36) for aspiration type cars,which constitutes 82.1\% of dataset.In addition, there are more front wheel drive (118) than four wheel drive (8) and rear wheel drive (75)for drive wheels type cars,which constitutes 58.7\% of dataset. Finally, there are more hatchback (68) and sedan (94) than other body styles cars,which constitute 33.8\% and 46.8\% of dataset.  
+
+#mean and sd
+```{r}
+price<-select(auto.data,price)
+summary(price)
+#Get the mean, median, minimum, maximum and quartiles
+lapply(price, sd)
+
+```
+
+```{r}
+#Car Price Distribution
+ggplot(auto.data, aes(price)) + geom_density()+ggtitle("Car Price Distribution")+geom_vline(xintercept = mean(auto.data$price), 
+                color = "skyblue", size=1)+geom_vline(xintercept = median(auto.data$price), 
+                color = "#cc99ff", size=1)+geom_text(aes(x=median(auto.data$price), label="\nMedian", y=0.00001), colour="#cc99ff", angle=60) +
+  geom_text(aes(x=mean(auto.data$price), label="\nMean", y=0.00001), colour="skyblue", angle=60 )
+
+
+```
+Based on the Plot 1, we are able to view the price distribution from the dataset.Blue line indicates the average car price (\$13207) from the dataset, while purple line indicates the median car price(\$10295) from the dataset.The distribution is right skewed with IQR=8725 (Q1=7775 and Q3=16500).
+
+
+
+```{r}
+# Bodystyle and price 
+boxplot(auto.data$price~auto.data$body.style, ylab = 'price', xlab = 'body styles', main = 'Car Price And Body Styles ', col = 'skyblue')
+
+```
+From Plot 2, analyst uses boxplot to demonstrate the price distribution in terms of body styles. There are five total body styles. The boxplot shows the convertible and hardtop cars have releative higher mean car price while they are also in very wide price range. In addition, sedan cars also has really wide price range and many outliers. Overall, this graph suggests convertible (mean=17084.5)and hardtop (19687.5)are releative expensive than other cars, while the data summary suggests sedan (count=94) and hatachback (count=68) are top two most used cars. However, analysis need to have further analysis to testify if above estimations are true. 
+
+
+```{r}
+# Aspiration And Price 
+boxplot( auto.data$price~auto.data$drive.wheels, ylab = 'car Price', xlab = 'drive wheels', main = 'Price In Drive Wheel ', col = "#33ffc9")
+
+```
+The Plot 3 displays the price distribution in terms of drive wheels. There are three types of drive wheels: four wheel drive, front wheel drive and rear wheel drive. From the boxplot above, analyst finds the rear wheel drive cars have relatively higher price (mean=16900) than the other two types of drive wheels.From the data summary, analyst find there are more front wheel drive cars(count=118) than four wheel drive(count=8) and rear wheel drive(count=75) cars. Therefore, due to price differences between rear wheel drive and other two types of drive wheels,analyst combines the four wheel drive and front wheel drive cars to compare with rear wheel drive for further statiscial analysis.
+
+```{r}
+#count body style 
+bs_count<-c(6,8,68,94,25)
+```
+
+```{r}
+Plot4<-pie(bs_count, main="Cars In Body Styles", col=rainbow(length(bs_count)),
+   labels=c("Convertible","Hardtop","Hatchback","Sedan","Wagon"))
+Plot4
+```
+From Plot 4, analyst is able to find how car distributed in body styles in the datasets. Out of 201 cars, there are 6 convertible cars, 8 Hardtop cars,68 Hatchback cars, 94 Sedan cars, and 25 Wagon cars.
+
+```{r}
+auto.data$carclass<- ifelse(auto.data$price >7000,"luxury","economy")
+```
+
+```{r}
+# Car price, Body-styles and Drive wheels
+ggplot(auto.data, aes(x = body.style, y = price,color = drive.wheels)) +
+geom_point() +ggtitle("Car price, Body Styles And Drive Wheels")+labs(x = "Body Styles", y = "Price", color = " Drive Wheels")+ theme(legend.position = "bottom")
+```
+
+From above Plot 5, analyst demonstrates the car price distribution in terms of body styles and drive wheels. It shows the rear wheel drive cars have releative higher price than other types of drive wheels. Most of expensive cars,regardless of which body styles, tend to have rear wheel drives than other two types of drive wheels. Convertible, hardtop and sedan cars are three car types that all have enormous fluctuation in price ranges,while hatchback and sedan cars are the top two most used cars.
+
+
+
+
+
+```{r}
+#Combine to do comparison rwd+fwd+4wd -one sample proportion 
+auto.data.rwd<-filter(auto.data, auto.data$drive.wheels == "rwd")
+auto.data.fwd<-filter(auto.data, auto.data$drive.wheels == "fwd")
+auto.data.4wd<-filter(auto.data, auto.data$drive.wheels == "4wd")
+auto.data.fwd<-rbind(auto.data.4wd,auto.data.fwd)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Statistic Analysis\
+There are 5 tests for this study on price distribution in terms of car characteristics.
+ 
+one sample+> price
+proportion->rw vs fw
+two dif->as
+two difference->aspiration
+
+two->aspiration
+chi->body style
+
+###Test 1:
+**Question of Interest:**\
+What is the average car price for all car population in 1985?\
+ **Statistic test:** One sample T-test approach.\
+Explanation: This question of interest focuses on the average car price in whole car population in 1985. From the previous research on average car price in 1980s (Pearson), the estimate true mean car price is kwnown, which is \$7000, while the population variance of car price is unkown. Therefore, the best choice of this problem is one sample t-test.
+ 
+**Condition and Requirement**\
+  Is the sample representative of the population?\
+  *The sample cannot surely confirm to be the representative of the population. Though it is from reliable source UCI Machine Learning Repository that complied by Jeffrey C. Schlimmer, dataset cannot be fully representative to the population due to limited resources.\
+  One quantitative variable of interest?\
+  *The car price from the dataset is quantiative variable.\
+  We want to make inference about the population mean using the sample mean?\
+  *Yes.\
+  The population variance is unknown so we estimate it using sample data?
+  *Yes.\
+  The sample comes from a single population?\
+  *Yes.\
+  The population data must be normally distributed?\
+  *To check this condition look at a QQ plot of the sample data.
+  *Sample size is 201 which is larger than 30.
+  
+
+```{r}
+library(dplyr)
+set.seed(0)
+qqnorm(auto.data$price)
+```
+
+```{r}
+hist(auto.data$price)
+```	
+In Q-Q plot, we were expected to see that the data fell along the line with most points concentrated in the center of the line and fewer points towards the ends.The Q-Q plot shows there are more points concentrated in the middle and less towards the edges, but this is far from a straight line. And histogram also suggest the price distribution is right skewed.The normality assumption is not met and we should be concerned about the reliability of our p-value and confidence intervals.\
+**Parameter**\
+The population parameter we want to make inference to is average car price $\mu$ in 1985.
+**Hypotheses**\
+Null Hypothesis: $$H_0:\mu=7000$$
+*The true mean car price in whole car population in 1985 is \$7000.
+Alternative Hypothesis: $$H_A:\mu\neq7000$$
+*The true mean car price in whole car population in 1985 is different than \$7000.
+**Sample Statistic**
+The sample statistic is the sample mean car price $\overline{x}$.
+**Test Statistic**
+From research, we find estimate true mean for car price is $7000,we will use it to compare with our sample.When we do not know the population variance for car price and we have to estimate it with the sample mean, the reference distribution of our test statistic shifts to a t-distribution. The shape of a t-distribution depends on the sample size.As n approaches infinity the t-distribution approaches the normal distribution. \
+**Distribution of the test statistic**
+$$t_{n-1}=\frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}\sim t_{n-1}$$
+**P Value**
+Two-sided based on alternative hypothesis.\
+Analysis involves comparing the P-Value with the significance level $\alpha = 0.05$. If P-Value is < \alpha then our null hypothesis is rejected whereas if P-value is > \alpha there exist a weak evidence
+and we will not be able to reject the null hypothesis.
+```{r}
+# sample mean
+x_bar <- mean(auto.data$price)
+# null hypothesized population mean
+mu_0 <- 7000
+# sample st. dev
+s <- sd(auto.data$price)
+# sample size
+n <- length(auto.data$price)
+# t-test test statistic
+t <- (x_bar - mu_0)/(s/sqrt(n))
+# two-sided p-value 
+two_sided_t_pval <- pt(q = t, df = n-1, lower.tail = FALSE)*2
+two_sided_t_pval
+```
+
+**Confidence Interval**
+Two Sided based on our alternate hypothesis.\
+$$P(\overline{x}-t_{(\frac{\alpha}{2},n-1)}\frac{s}{\sqrt{n}}<\mu<\overline{x}-t_{(\frac{\alpha}{2},n-1)}\frac{s}{\sqrt{n}})=(1-\alpha)$$
+Lower Bound:\
+```{r}
+# lower bound
+test1_lb<-x_bar+(qt(0.025, n-1)*(s/sqrt(n))) 
+test1_lb
+```
+Upper Bound:\
+```{r}
+# upper bound
+test1_ub<-x_bar+(qt(0.975, n-1)*(s/sqrt(n))) 
+test1_ub
+```
+
+**Comparison with R built-in T test**
+```{r}
+t.test(auto.data$price,
+alternative = "two.sided",
+mu =7000)
+```
+
+Following comparsion with R built-in T test, we find our result is fairly close to R built-in T test result. 
+**Interpretation**
+There is strong evidence (p-value=1.553377e-22) to suggest that the true mean car price in 1985  is different than \$7000. We reject the null hypothesis that the true mean car price in 1985
+is \$700 at the level$\alpha=0.05$. With 95% confidence, the true mean
+car price in 1985 is between \$12101.8 and \$14312.46 which suggests that the true mean car price in 1985 is greater than \$7000.
+
+**Bootstrap Approach**
+Due to the right skewed distribution, we need to simulate much more times. So we set 1000 times of simulation for sampling distribution of the sample mean. The graph below shows that after simulation, sampling distribution is really close to normal distriution. 
+```{r}
+set.seed(0)
+num_sims <- 10000
+# A vector to store my results
+results <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+results[i] <- mean(sample(x = auto.data$price,
+size = n,
+replace = TRUE))
+}
+# Finally plot the results
+hist(results, freq = FALSE, main='Sampling Distribution of the Sample Mean', xlab = 'Average car price', ylab = 'Density', ylim=c(0,0.0008))
+# estimate a normal curve over it - this looks pretty good!
+lines(x = seq(10000, 30000, .1), dnorm(seq(10000, 30000, .1), mean = x_bar, sd =  7947.066/sqrt(201)))
+```
+
+
+```{r}
+price<-select(auto.data,price)
+
+```
+
+
+To show the sampling distribution to be true under null hypothesis,then the true mean car price is \$7000. We need to shift distribution to satisfy the null hypothesis. 
+```{r}
+set.seed(0)
+# Shift the sample so that the null hypothesis is true
+time_given_H0_true <-auto.data$price-mean(auto.data$price)+mu_0
+
+
+# This data is pretty skewed so even though n is large, I'm going to do a lot of simulations
+num_sims <- 10000
+# A vector to store my results
+results_given_H0_true <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+results_given_H0_true[i] <- mean(sample(x = time_given_H0_true,
+size = n,
+replace = TRUE))}
+# Finally plot the results
+hist(results_given_H0_true, freq = FALSE, main='Sampling Distribution of the Sample Mean,
+     Given H0 is True', xlab = 'Average Car Price', ylab = 'Density', xlim=c(600,15000))
+# add line to show values more extreme on upper end
+abline(v=x_bar, col = "red")
+# add line to show values more extreme on lower end
+low_end_extreme <- mean(results_given_H0_true)+(mean(results_given_H0_true)-x_bar)
+
+abline(v=low_end_extreme, col="red")
+```
+This graph shows the sampling distribution of the sample mean, giving $H_0$ is true. To satisify null hypothesis is true, sample mean is \$7000, while two red lines indicate two extrme values. Upper end red line shows the average mean from the orginial dataset.
+
+**Bootstrap P value**
+```{r}
+# counts of values more extreme than the test statistic in our original sample, given H0 is true
+# two sided given the alternate hypothesis
+count_of_more_extreme_lower_tail <- sum(results_given_H0_true <= low_end_extreme)
+count_of_more_extreme_upper_tail <- sum(results_given_H0_true >= x_bar)
+bootstrap_pvalue <- (count_of_more_extreme_lower_tail + count_of_more_extreme_upper_tail)/num_sims
+bootstrap_pvalue
+```
+
+Comparing to traditional one sample t test result, our p values of both approach is really close.
+
+**bootstrap confidence interval**
+```{r}
+set.seed(0)
+bootstrap_SE_X_bar <- sd(results)
+# an estimate is to use the formula statistic +/- 2*SE
+c(x_bar - 2*bootstrap_SE_X_bar, x_bar + 2*bootstrap_SE_X_bar)
+```
+
+The interval of bootstrap approach is wider which agrees with our p-value being a bit more conservative. In this case,the traditional t-tools were making our results a bit more significant
+and our confidence intervals narrower than what we found using the empirical method.
+
+### Test 2:
+**Question of Interest:**\
+Is the rear wheel drive cars evenly distributed with the other two types wheel drive cars for all car population in 1985?\
+ **Statistic test:** One sample one proportion T-test approach.\
+Explanation: This question of interest focuses on the proportion of rear wheel drive cars in whole car population in 1985. We have a categorical variable with three categories (front wheel, four wheel , rear wheel) but we can group the front wheel drive and four wheel drive cars together. So that instead of front wheel drive,four wheel drive and rear wheel drive, we have rear wheel dirve and non-rear wheel drive cars.As we interested in the proportion of rear wheel drive cars, so the best choice of this test is one sample one proportion t test.  
+
+**Condition and Requirement**\
+  Exact Binomial Test?\
+  *No requirements\
+  Normal approximation?\
+  *$n\widehat{p}\geq 10$ and $n(1-\widehat{p})\geq 10$\
+    *Yes.$(75)\frac{75}{201}=27.98>10$ and $(201-75)\frac{201-75}{201}=78.99>10$ 
+  Condition and requirement satisfied for both exact binomial test and normal approximation.
+    
+**Parameter**\
+The population parameter we want to make inferences to the population proportion of rear wheel drive cars in 1985 $p_r$.\
+
+**Hypotheses**\
+Null Hypothesis: $H_0:p_r=0.333\overline{3}$\
+*The true proportion of rear wheel drive cars in 1985 is 33.33%.\
+Alternative Hypothesis: $H_A:p_r>0.333\overline{3}$\
+*The true proportion of rear wheel drive cars in 1985 is greater than 33.33%.\
+**Sample Statistic**
+The sample statistic is $\widehat{p}=\frac{75}{201}=0.3731$
+**Test Statistic**
+*Exact test: there is no test statistic, find the probability directly.
+*Normal approximation (using $p_0$to find the test statistic)
+$$z=\frac{\widehat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}=\frac{0.3731-0.3333}{\sqrt{\frac{0.3333(1-0.3333)}{201}}}= 1.1970$$
+**Distribution of the test statistic**
+
+$$z=\frac{\widehat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\sim N(0,1)$$
+**P value**
+```{r}
+binom.test(x=75, n = 201, p=(1/3), alternative="greater")
+```
+One sided upper normal ppproximation
+
+```{r}
+pnorm(1.1970, lower.tail = FALSE)
+```
+**Confidence interval**
+One-Sided Upper Confidence Interval - Exact: from binom.test - Normal Approximation: using the Wald statistic
+
+```{r}
+cat("exact binomial test")
+```
+```{r}
+binom.test(x=75, n = 201, p=(1/3), alternative="greater")$conf.int
+```
+
+```{r}
+cat("normal approx")
+```
+
+```{r}
+c(0.3731 - (1.64)*sqrt(((0.3731)*(1-0.3731))/201), 1)
+```
+Interpretation
+There is very weak evidence (p-value=0.1313) that the true proportion of rear wheel drive cars is
+greater than .33333. We cannot reject the null hypothesis that the true proportion of rear wheel drive cars is equal to .3333. We cannot reject the null hypothesis that the true proportion of rear wheel drive cars is equal to .3333. The true proportion of rear wheel drive cars in the population of rear wheel drive, front wheel drive and four wheel drive cars is between 0.3162255 and 1.\
+
+
+**Bootstrap Approach**
+
+
+```{r}
+set.seed(0)
+rwd <- rep(c(1, 0), c(75, 201-75))
+table(rwd)
+```
+We set 1000 times of simulation for sampling distribution of the sample proportion. The graph below shows that after simulation, sampling distribution is really close to normal distriution. 
+
+```{r}
+set.seed(0)
+num_sims <- 10000
+# A vector to store my results
+results <- rep(NA,num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+results[i] <- mean(sample(x=rwd,
+size = 201,
+replace = TRUE))
+}
+# Finally plot the results
+hist(results,freq=FALSE,main='Sampling Distribution of the Sample Proportion',xlab = 'proportion of rear wheel drive cars',ylab = 'Density',xlim=c(0,1))
+# estimate a normal curve over it - this looks pretty good!
+lines(x=seq(.01,.75,.001),dnorm(seq(.01,.75,.001),mean=mean(results),sd=sd(results)))
+
+```
+**Confidence Interval**
+Using this sampling distribution to find the 5th and 95th percentiles and compare to the other methods.
+```{r}
+cat("Bootstrap Confidence Interval")
+c(quantile(results, c(.05, 1)))
+```
+```{r}
+cat("Exact Binomial test")
+binom.test(x=75, n = 201, p=(1/3), alternative="greater")$conf.int
+```
+
+```{r}
+cat("normal approx")
+c(0.3731 - (1.64)*sqrt(((0.3731)*(1-0.3731))/201), 1)
+```
+
+To show the sampling distribution of sampling proportion to be true under null hypothesis,then the $H_0:p=0.3333$, we need to shift distribution to satisfy the null hypothesis. 
+
+
+```{r}
+set.seed(0)
+# Under the assumption that the null hypothesis is true, we have 50% peanuts
+rwd <- rep(c(1, 0), c(67, 201-67))
+num_sims <- 10000
+# A vector to store my results
+results <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+results[i] <- mean(sample(x = rwd,
+size = 201,
+replace = TRUE))
+}
+# Finally plot the results
+hist(results, freq = FALSE, main='Sampling Distribution of the Sample Proportion under H
+_0:p=0.3333', xlab = 'Proportion of rear wheel drive cars', ylab = 'Density')
+# estimate a normal curve over it - this looks pretty good!
+lines(x = seq(.1, .75, .001), dnorm(seq(.1, .75, .001), mean = mean(results), sd = sd
+(results)))
+abline(v=0.3731, col="red")
+```
+
+
+```{r}
+count_of_more_extreme_upper_tail <- sum(results >= .3731)
+bootstrap_pvalue <- count_of_more_extreme_upper_tail/num_sims
+cat("Bootstrap p-value")
+bootstrap_pvalue
+```
+```{r}
+cat("Exact Binomial p-value")
+binom.test(x=75, n = 201, p=(1/3), alternative="greater")$p.value
+```
+```{r}
+cat("Normal Approximation p-value")
+pnorm(1/3, lower.tail = FALSE)
+```
+
+In this case our bootstrapped p-value is closer to the exact binomial and it is more conservative than the normal approximation. 
+
+### Test 3:
+**Question of Interest:**\
+Is there a difference in price between turbo cars and standard cars?\
+ **Statistic test:** Two sample T-test for difference in means approach.\
+Explanation: This question of interest focuses on the comparison of turo cars and standard cars as two populations in terms of price.The true mean car price as well as the true population of each group are unknown. Therefore, the best choice of this problem is one sample t-test.
+ 
+**Condition and Requirement**\
+  Is the sample representative of the population?\
+  *The sample cannot surely confirm to be the representative of the population.\
+  Question of interest has to do with the difference of means between two populations?
+  *Yes, Turbo cars and standard cars populations and the difference in the mean price for each population.\
+  2 independent samples from 2 populations?\
+  *Yes, turbo cars and standard cars can be considered as two different populations.\
+  The population data must be normally distributed?\
+  *To check this condition look at a QQ plot of the sample data.
+  *Sample sizes are 36 for turbo cars and 165 for standard cars, which are larger than 30.
+```{r}
+turbo<-filter(auto.data,auto.data$aspiration=="turbo")
+std<-filter(auto.data,auto.data$aspiration=="std")
+```
+```{r}
+qqnorm(auto.data$price)
+```
+```{r}
+qqnorm(auto.data$price[auto.data$aspiration=="turbo"],xlab = "Theoretical Quantiles-turbo")
+```
+```{r}
+qqnorm(auto.data$price[auto.data$aspiration=="std"],xlab = "Theoretical Quantiles-standard")
+```
+
+```{r}
+histogram(~ price | aspiration, data=auto.data)
+```
+
+From Q-Q plots and histograms above, we find turbo samples' Q-Q plot is somewhat close to normal distribution while standard sample's Q-Q plot is not normally distributed but right skewed.Both histograms confirmed that both samples are not normally distributed. The normality assumption is not met and we should be concerned about the reliability of our p-value and confidence intervals.
+  
+
+**Parameter:** We are interested in the true population mean difference in price between turbo cars and standard cars  $\mu_t-\mu_s$\
+**Hypothesis:**\
+  *$H_0:\mu_t-\mu_s=0$\
+      *The true population mean price for turbo cars is equal to the true population mean price for standard cars.\
+
+  *$H_A:\mu_t-\mu_s \neq 0$\
+    *The true population mean price for turbo cars is different than the true population mean price for standard cars.\
+
+**Sample Statistic**\
+$$\overline{x_t}-\overline{x_s}$$
+**Test Statistic**
+$$t_{min(n_t-1,n_s-1)}=\frac{(\overline{x_t}-\overline{x_s})-(\mu_t-\mu_s)}{\sqrt{\frac{s_t^2}{n_t}+\frac{s_s^2}{n_s}}}$$
+
+**Distribution of the test statistic**
+$$t_{min(n_t-1,n_s-1)}=\frac{(\overline{x_t}-\overline{x_s})-(\mu_t-\mu_s)}{\sqrt{\frac{s_t^2}{n_t}+\frac{s_s^2}{n_s}}} \sim t_{min(n_t-1,n_s-1)} $$
+ 
+  
+  
+  
+  
+
+
+
+## Sample Mean
++ Here $\overline{x_t}$ = X_bar_t = Average price of turbo car Sample
++ Here $\overline{x_s}$ = X_bar_s = Average price of standard car Sample
+```{r}
+# Sample Mean
+X_bar_t <- mean(auto.data$price[auto.data$aspiration=="turbo"])
+X_bar_s <- mean(auto.data$price[auto.data$aspiration=="std"])
+
+```
+
+## Sample variance
++ Here $s^2_t$ = s_t = variance of turbo car Sample
++ Here $s^2_s$ = s_s = variance screentime of standard car Sample
+```{r}
+# Sample Variance
+s_t <- sd(auto.data$price[auto.data$aspiration=="turbo"])**2
+s_s <- sd(auto.data$price[auto.data$aspiration=="std"])**2
+
+```
+
+## Sample size
++ Here $n_t$ = n_i = size of turbo car Sample
++ Here $n_s$ = n_c = size of standard car Sample
+```{r}
+# Sample Size
+n_t <- length(auto.data$price[auto.data$aspiration=="turbo"])
+n_s <- length(auto.data$price[auto.data$aspiration=="std"])
+
+```
+
+## Null Hypothises
+
+```{r}
+#Null Hypothises
+mu <- 0
+```
+
+```{r}
+# T Test
+t <- (X_bar_t - X_bar_s - mu)/sqrt((s_t/n_t) + (s_s/n_s))
+t
+```
+
+## p-value for two sided 
+
+```{r}
+# p-value for two sided upper
+two_sided_diff <- pt(q=t, df = min(n_t, n_s)-1, lower.tail = FALSE) * 2
+two_sided_diff
+```
+
+## Alpha
+```{r}
+Alpha <- 0.05
+Confidence_Interval <- 0.95
+```
+
+
+## Confidence Interval
+
+```{r}
+# Lower Bound
+L_bound <- (X_bar_t - X_bar_s) + (qt(0.025, min(n_t, n_s)-1)* sqrt((s_t/n_t) +(s_s/n_s)))
+L_bound
+```
+
+```{r}
+# Upper Bound
+U_bound <- (X_bar_t- X_bar_s) + (qt(0.975, min(n_t, n_s)-1)* sqrt((s_t/n_s) +(s_s/n_s)))
+U_bound
+```
+
+
+```{r}
+t.test(auto.data$price[auto.data$aspiration=="turbo"], auto.data$price[auto.data$aspiration=="std"])
+
+```
+
+
+**Bootstrap approach**
+Due to the skewed distributions for both samples, we need to simulate much more times. So we set 1000 times of simulation for sampling distribution of the sample mean. The graph below shows that after simulation, sampling distribution is really close to normal distriution. 
+
+```{r}
+set.seed(0)
+num_sims <- 10000
+# A vector to store my results
+results <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+mean_turbo <- mean(sample(x = auto.data$price[auto.data$aspiration=="turbo"],
+size = 36,
+replace = TRUE))
+mean_std <- mean(sample(x = auto.data$price[auto.data$aspiration=="std"],
+size = 165,
+replace = TRUE))
+results[i] <- mean_turbo - mean_std
+}
+# Finally plot the results
+hist(results, freq = FALSE, main='Sampling Distribution of the Sample Mean', xlab = 'Average Difference Price', ylab = 'Density')
+```
+
+```{r}
+#bootstrap two sidedCI
+c(quantile(results, c(.025, .975)))
+```
+```{r}
+# compare to our t-methods
+t.test(auto.data$price[auto.data$aspiration=="turbo"], auto.data$price[auto.data$aspiration=="std"])$conf.int
+```
+
+
+
+
+```{r}
+library(data.table)
+a<-copy(auto.data)
+```
+
+
+
+```{r}
+set.seed(0)
+num_sims <- 10000
+# A vector to store my results
+results_given_H0_true <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+# idea here is if there is no relationshipm we should be able to shuffle the groups
+shuffled_groups <- transform(a,aspiration=sample(aspiration))
+mean_t <- mean(shuffled_groups$price[shuffled_groups$aspiration=="turbo"])
+mean_s <- mean(shuffled_groups$price[shuffled_groups$aspiration=="std"])
+results_given_H0_true[i] <- mean_t - mean_s
+}
+# Finally plot the results
+hist(results_given_H0_true, freq = FALSE,
+main='Dist. of the Diff in Sample Means Under Null',
+xlab = 'Average Difference Price under Null',
+ylab = 'Density',xlim = c(-10000,10000))
+diff_in_sample_means <- mean(auto.data$price[auto.data$aspiration=="turbo"]) - mean(auto.data$price[auto.data$aspiration=="std"])
+abline(v=diff_in_sample_means, col = "blue")
+abline(v=-(diff_in_sample_means), col = "red")
+```
+Graph Plot 17 shows the distribution of the difference in sample mean, giving H0 is true. To satisfy the null hypothesis is true, the difference in sample mean should be zero. Red line and blue line indicate two extreme values.
+
+```{r}
+count_of_more_extreme_lower_tail <- sum(results_given_H0_true <= -diff_in_sample_means)
+count_of_more_extreme_upper_tail <- sum(results_given_H0_true >= abs(diff_in_sample_means))
+bootstrap_pvalue <- (count_of_more_extreme_lower_tail + count_of_more_extreme_upper_tail)/num_sims
+cat("Bootstrap p-value")
+bootstrap_pvalue
+```
+```{r}
+t.test(auto.data$price[auto.data$aspiration=="turbo"], auto.data$price[auto.data$aspiration=="std"])$p.value
+```
+From the computation, analyst finds that there is strong evidence (p-value=0.004128058) to suggest that the true mean price for turbo cars is different than standard cars. We reject the null hypothesis that there is no difference between true population mean price for turbo cars at the level $\alpha=0.05$. With 95\% confidence, the true difference between the mean price between turbo cars and standard cars is between 1257.027 and 5328.797. The null hypothesized difference between the mean price is zero and zero is not in the 95% confidence interval which is consistent with our rejection of the null hypothesis and the values of the confidence interval suggest that on average turbo cars have higher prices than standard cars.Our p-value from traditional test is a bit more conservative compared to bootstrap approach. In this case the traditional t-tools were making our results a bit more significant and our confidence intervals narrower than what we found using the empirical method.\
+
+### Test 4
+**Question of Interest:**\
+How turbo aspiration type distributed in luxury class compared to economy class in 1985?\
+ **Statistic test:** Two sample T-test for difference in proportions approach.\
+Explanation: Explanation: This question of interest focuses on the comparison of luxury and economy class as two populations in terms of turbo aspiration proportion in each population.The true difference in proportion of turbo cars in luxury class cars population and economy class cars population is what we seek. Therefore, the best choice of this problem is two sample t-test for difference in proportions approach.
+
+ 
+**Condition and Requirement**\
+  Is the sample representative of the population?\
+  *The sample cannot surely confirm to be the representative of the population.\
+  Question of interest has to do with the difference of proportions between two populations?
+  *Yes, Luxury and economy cars as two populations and the true difference in the proportion of turbo type aspiration for each population.\
+  Categorial response variable with 2 categories?\
+  *Yes
+  2 independent samples from 2 populations?\
+  *Yes, luxury cars and economy cars can be considered as two different populations.\
+  $np\geq10$ and $n(1-p)\geq10$ for both populations?\
+  *Yes.
+
+```{r}
+auto.data$carclass<- ifelse(auto.data$price >13207,"luxury","economy")
+#Comparison between luxury and standard -two sample proportion
+#car class classfication
+carclass.luxury<-filter(auto.data, auto.data$price > 13207)
+carclass.economy<-filter(auto.data, auto.data$price <= 13207)
+luxury.standard<-filter(carclass.luxury, carclass.luxury$aspiration=="turbo")
+economy.standard<-filter(carclass.economy, carclass.economy$aspiration=="turbo")
+
+```
+**Parameter**
+We are interested in the difference between the true population proportion of turbo type from the luxury cars and true population proportion of turbo type from the economy cars. 
+**Hypotheses**
+*Null Hypothesis: $H_0:p_l-p_e=0$\
+There is no difference between the true population proportion of turbo type from the luxury cars and true population proportion of turbo type from the economy cars.
+*Alternative Hypothesis: $H_0:p_l-p_e\neq0$
+There is a difference between the true population proportion of turbo type from the luxury cars and true population proportion of turbo type from the economy cars.
+**Sample Statistic**
+$$\widehat{p}_l-\widehat{p}_e$$
+**Test Statistic**
+$$z=\frac{(\widehat{p}_l-\widehat{p}_e)-(p_l-p_e)}{\sqrt{\frac{\widehat{p}_l(1-\widehat{p}_l)}{n_l}+\frac{ \widehat{p}_e(1-\widehat{p}_e)}{n_e}}}$$
+**Distribution of the test statistic**
+$$z=\frac{(\widehat{p}_l-\widehat{p}_e)-(p_l-p_e)}{\sqrt{\frac{\widehat{p}_l(1-\widehat{p}_l)}{n_l}+\frac{ \widehat{p}_e(1-\widehat{p}_e)}{n_e}}}\sim N(0,1)$$
+
+**P value**
+
+```{r}
+luxuryturbonumber<-count(carclass.luxury$aspiration=="turbo")
+economytrbonumber<-count(carclass.economy$aspiration=="turbo")
+# sample props
+lt<-22
+et<-14
+p_hat_l <- 22/74
+p_hat_e <- 14/127
+
+
+```
+
+```{r}
+# null hypothesized population prop difference between the two groups
+p_0 <- 0
+# sample size
+n_l <- 74
+n_e <- 127
+# sample variances
+den_p_l <- (p_hat_l*(1-p_hat_l))/n_l
+den_p_e <- (p_hat_e*(1-p_hat_e))/n_e
+# z-test test statistic
+z <- (p_hat_l - p_hat_e - p_0)/sqrt(den_p_l + den_p_e)
+# two sided p-value
+two_sided_diff_prop_pval <- pnorm(q = z, lower.tail = FALSE)*2
+two_sided_diff_prop_pval
+```
+**Confidence interval**
+```{r}
+#lower b
+(p_hat_l - p_hat_e)+(qnorm(0.025)*sqrt(den_p_l + den_p_e))
+# upper bound
+(p_hat_l - p_hat_e)+(qnorm(0.975)*sqrt(den_p_l + den_p_e))
+```
+
+**Bootstrap Approach**
+If the null hypothesis is true, then the true difference in proportions between the two groups is 0. We need to create a randomization distribution to satisfy the null hypothesis.
+```{r}
+set.seed(2)
+# Make the data
+L <- rep(c(1, 0), c(lt, n_l - lt))
+E<- rep(c(1,0), c(et, n_e - et))
+num_sims <- 10000
+# A vector to store my results
+results <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+prop_L <- mean(sample(L,
+size = n_l,
+replace = TRUE))
+prop_E <- mean(sample(x = E,
+size = n_e,
+replace = TRUE))
+results[i] <- prop_L - prop_E
+}
+# Finally plot the results
+hist(results, freq = FALSE, main='Dist. of the Diff in Prop', xlab = 'Difference in Prop. of Turbo type', ylab = 'Density')
+```
+```{r}
+cat("Bootstrap")
+c(quantile(results, c(.025, .975)))
+```
+
+```{r}
+cat("Normal Approximation")
+c((p_hat_l - p_hat_e)+(qnorm(0.025)*sqrt(den_p_l + den_p_e)), (p_hat_l - p_hat_e)+(qnorm
+(0.975)*sqrt(den_p_l + den_p_e)))
+```
+
+
+```{r}
+# Make the data
+df_combined <- data.frame("Turbocar" = c(L, E),"group" = rep(c("luxury", "economy"), c(n_l, n_e)))
+# Sanity checks
+summary(df_combined$group)
+```
+```{r}
+mean(df_combined$Turbocar[df_combined$group=="luxury"]) == p_hat_l
+
+mean(df_combined$Turbocar[df_combined$group=="economy"]) == p_hat_e
+
+```
+```{r}
+num_sims <- 1000
+# A vector to store my results
+results_given_H0_true <- rep(NA, num_sims)
+# A loop for completing the simulation
+for(i in 1:num_sims){
+# idea here is if there is no relationshipm we should be able to shuffle the groups
+shuffled_groups <- transform(df_combined, group=sample(group))
+prop_l <- mean(shuffled_groups$Turbocar[shuffled_groups$group=="luxury"
+])
+prop_e <- mean(shuffled_groups$Turbocar[shuffled_groups$group=="economy"])
+results_given_H0_true[i] <- prop_l - prop_e
+}
+# Finally plot the results
+hist(results_given_H0_true, freq = FALSE,
+main='Dist. of the Diff in Sample Props Under Null',
+xlab = 'Average Difference in Prop. turbo type under Null',
+ylab = 'Density')
+diff_in_sample_props <- p_hat_l - p_hat_e
+abline(v=diff_in_sample_props, col = "blue")
+abline(v=-diff_in_sample_props, col = "red")
+```
+
+```{r}
+# counts of values more extreme than the test statistic in our original sample, given H0 is true
+# two sided given the alternate hypothesis
+count_of_more_extreme_lower_tail <- sum(results_given_H0_true <= -diff_in_sample_props)
+count_of_more_extreme_upper_tail <- sum(results_given_H0_true >= diff_in_sample_props)
+bootstrap_pvalue <- (count_of_more_extreme_lower_tail + count_of_more_extreme_upper_tail)/num_sims
+cat("Bootstrap p-value")
+bootstrap_pvalue
+```
+```{r}
+cat("Normal Approx p-value")
+two_sided_diff_prop_pval
+```
+Using randomization methods, there is strong evidence (p-value = 0.00181061) to suggest that there is a difference in the true proportion of turbo type between luxury cars and economy cars. We reject the null hypothesis that the true proportion of turbo type from luxury class is equal to the true proportion of turbo cars from economy class at the level $\alpha=0.05$. Using confidence intervals created by the bootstrap method, we can say with 95% confidence that the true population proportion difference is between 0.07224941 to 0.30527772. The null hypothesized difference of 0 is not in the confidence interval which agrees with our rejection of the null hypothesis.
+
+
+
+###Test 5:
+**Question of Interest:**\
+From the body-styles convertible, hardtop, hatchback, sedan, and wagon,are certain body style more preferred than others in 1985?
+```{r}
+table(auto.data$body.style)
+
+```
+
+```{r}
+prop.table(table(auto.data$body.style))
+```
+In Table 5, analyst is able to find each body style count and percentage of dataset.
+
+**Paramater of interest**\
+We are interested in the true proportion of each body style of cars $p_c,p_{har},p_{hat},p_s,p_e$.
+**Statistic test:**Chi-square Goodness of Fit Test
+Explantation: The body style is single categorical variable with 5 categories.The only right choice for this problem is Chi-square Goodness of Fit Test.
+**Condition and requirement**
+Single categorical variable with more than 2 categories?
+*Yes
+The expected count of each count is at least 5?
+*Yes
+**Hypotheses**
+Null Hypothesis:$H_0:p_c=p_{har}=p_{hat}=p_s=p_e=0.2$\
+*The proportion of each body style is the same and is equal to 0.2.\
+Alternative Hypothesis: H_A: some $p_i\neq0.2$\
+*At least one of the proportions is not equal to 0.2.\
+
+Under null hypothesis, the expected count $np_i=201\times 0.2=40.1$\
+
+**Sample Statistics**\
+In this example we have 5 sample statistics.\
+$$\widehat{p}_c,\widehat{p}_{har},\widehat{p}_{hat},\widehat{p}_s,\widehat{p}_e$$
+**Test Statistic and Distribution**
+$$\chi^2=\sum_{i=1}^k (\frac{(O_i-E)^2}{E})\sim \chi^2_{k-1}$$
+```{r}
+sum(((table(auto.data$body.style) - 40.1)^2)/40.1)
+```
+**P value**
+```{r}
+
+pchisq(152.2406, df = 5-1, lower.tail = FALSE)
+```
+Interpretation:
+The data provides strong evidence (P=6.738178e-32) that some of the proportions of bodystyle is different than .2. We reject the null hypothesis that the proportions of the body styles are all equal to .2 at the level
+
+
+# Discussion
+Summary of Findings:\
+ Based on the statistical analysis, at the =0.05and with a 95% confidence, this study 
+ * Displays that rear wheel drive cars had relatively higher price than other drive wheels cars in 1985.\
+ * Displays that convertible and hardtop had relatively higher price than other body style cars in 1985.\
+ * Suggests that the average car price was greater than estimate mean price $7000 in 1980s.\
+ * Shows the proportion of rear wheel drive cars was equal to the other two drive wheel cars.\
+ * Indicates price of turbo aspiration car was significantly higher than standard aspiration cars.\
+ * Presents turbo aspiration car took a greater percentage in luxury class population than economy class population. \
+ *Displays some proportion of body styles of cars was different.\   
+ Implication of Findings:\
+ These findings implicate that in 1985, the average car price had increased from previous years that it was greater than estimate mean price in the 1980s. The proportion of rear wheel drive, non-rear wheel drive are not significant different in the whole car proportion. For aspiration types, findings shows turbo aspiration cars had significantly higher price than standard aspiration cars. In addition, more luxury cars were more likely to have turbo aspiration type compared to economy cars. Finally, the availability of each body style in the market is also different. It was possible that market and customers had preferences on car body styles,which affected market demand. \
+ Extensions, Limitations and Further Questions \
+  This study focuses on the automobile’s price and characteristics. The purpose of study is to provide statistical data as suggestions for car customer in 1985. Analyst can also find the trend of car features in 1985 to compare to what car features are most popular nowadays. From the findings on exploratory analysis, rear wheel cars were more likely to have higher prices, and convertible and hardtop had relatively higher price than other body style cars in 1985. In  statistical analysis , this study finds that aspiration type was one of the factors affected automobile price.Therefore, these findings can be used as suggestions to car customers in 1985. Compared to car market, some of these findings still stands. Sports cars, which are turbo and rear wheel drive mostly, seem more likely to cost more than other non-turbo and non-rear wheel drive cars.  But the comparison from 1985’s car market and today’s  car market needs to be further studied to confirm above assumption.\  These findings on automobile price, and its characteristics in 1985 are highly based on dataset from Jeffrey C. Schlimmer on limited sources.This study may have limitations due to confounding factors, potential biases environment, and limited sources so that this study could be biased. \
+  These findings cannot fully support conclusions on causation but can be discussed with several further steps: \
+  * Have a larger scope on the sample and more sources on our sampling selection to ensure the coverage of representative to population. \
+  * Create a well-developed sampling strategy designed for this topic to limit sampling errors.\
+  * Rule out potential confounding factors for the study. \
+  By having these modifications, This study can be further extended on price comparisons with car’s drive wheels, body styles and other undiscussed  characteristics like fuel types, horsepowers, mpgs, and etc. \
+
+
+
+
+
+
+\newpage
+
+# References\
+Aust, F., & Barth, M. (2018). papaja: Create APA manuscripts with R Markdown. Retrieved
+from https://github.com/crsh/papaja
+Pearson, S. (n.d.). 1980's Collector Cars including Prices. Retrieved from http://www.thepeoplehistory.com/80scars.html.
+Schlimmer , J. C. (n.d.). Retrieved from http://archive.ics.uci.edu/ml/datasets/Automobile.
+
+## Appendix
+
+```{r ref.label=knitr::all_labels(), echo = T, eval = F}
+```
+##Raw Data
+```{r}
+auto.data
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
+
