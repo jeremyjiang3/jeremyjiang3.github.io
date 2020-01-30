@@ -1,0 +1,91 @@
+Country,Age,Average Screen time last 24 hour,Average Screen time last 10 days,Top App,App Category,App Category_full,Time spent (HH:MM:SS.SSS),Country,City,Operating System,Browser,Device
+India,24-29,7,5.3,Game,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",01:05.4,USA,College Park,Android 9,Chrome Dev 78.0.3904.96,SM-N975U1
+India,30-35,3,3,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",01:41.1,USA,Seaside,iOS 13.2.2,Safari,Apple iPhone
+China,24-29,4.54,5.36,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",00:53.1,USA,Seattle,macOS Mojave 10.14,Chrome Dev 77.0.3865.90,
+China,18-23,2.5,3,Messages,Utilities,"Utilities - Calendar, Calculator Maps etc",01:54.1,USA,Los Angeles,iOS 13.1.3,WeChat 7.0.8,Apple iPhone
+China,24-29,6,7,WeChat,Social,"Social - Instagram, Facebook, Wechat etc",00:54.3,USA,Seattle,iOS 13.2.2,WeChat 7.0.8,Apple iPhone
+US,24-29,5.36,5.42,social,Social,"Social - Instagram, Facebook, Wechat etc",00:32.9,USA,Seattle,iOS 13.1.3,WeChat 7.0.8,Apple iPhone
+China,18-23,6.43,7.53,WeChat,Social,"Social - Instagram, Facebook, Wechat etc",02:13.5,USA,Seattle,iOS 13.1.3,WeChat 7.0.3,Apple iPhone
+China,24-29,10,9,wechat,Social,"Social - Instagram, Facebook, Wechat etc",02:15.5,AUS,Sydney,iOS 13.2,WeChat 7.0.8,Apple iPhone
+China,18-23,8.21,9.47,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",01:19.2,USA,New York,iOS 13.1.3,WeChat 7.0.8,Apple iPhone
+China,24-29,6.42,6.32,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",05:26.9,USA,Seattle,iOS 12.3.2,WeChat 7.0.8,Apple iPhone
+China,24-29,2.3,4.3,wechat,Social,"Social - Instagram, Facebook, Wechat etc",04:00.8,USA,Seattle,Android 9,WeChat 7.0.6.1460,OnePlus 5T
+China,24-29,4.2,3.55,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",04:47.1,USA,Seattle,iOS 13.1.2,WeChat 7.0.8,Apple iPhone
+China,18-23,4.5,5.5,WeChat,Social,"Social - Instagram, Facebook, Wechat etc",01:46.7,USA,Seattle,iOS 12.1.4,WeChat 7.0.5,Apple iPhone
+China,18-23,3.3,2.3,Maps,Utilities,"Utilities - Calendar, Calculator Maps etc",01:55.7,USA,Boston,iOS 13.1.3,WeChat 7.0.8,Apple iPhone
+US,18-23,7.35,8.43,Facebook,Social,"Social - Instagram, Facebook, Wechat etc",00:39.2,USA,Boston,iOS 12.3.1,WeChat 7.0.8,Apple iPhone
+India,18-23,2.15,1.5,YouTube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",02:19.7,IND,Unknown,Android 9,Chrome 53,RMX1921
+US,30-35,3.43,4.23,LinkedIn,Social,"Social - Instagram, Facebook, Wechat etc",00:41.4,USA,Boston,iOS 12.3.1,WeChat 7.0.8,Apple iPhone
+India,18-23,4,3.5,Twitter,Social,"Social - Instagram, Facebook, Wechat etc",01:13.2,IND,Unknown,iOS 13.1.2,Safari,Apple iPhone
+India,18-23,15,12,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",00:36.1,USA,Seattle,Android 9,Chrome Dev 78.0.3904.96,ONEPLUS A6013
+India,24-29,1.09,2.04,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",01:54.6,USA,San Jose,iOS 12.4.2,Safari,Apple iPhone
+India,24-29,7,7.3,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:45.4,USA,Boston,Android 9,Samsung Internet 10.1,Samsung SM-A705MN
+US,18-23,6,6,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",03:15.7,USA,Kearny,Android 8.1.0,Chrome Dev 75.0.3770.143,SM-M205F
+India,24-29,4,5,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",02:14.6,USA,Bellevue,iOS 13.2,Safari,Apple iPhone
+India,30-35,4.07,6.52,Youtube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",04:28.3,IND,Noida,Android 9,Chrome Dev 75.0.3770.101,OnePlus 6
+India,18-23,6,6,YouTube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",00:56.5,IND,Mumbai,Android 7.1.2,MIUI Browser Dev 11.2.4,Xiaomi Redmi Note 5A
+India,24-29,2.3,1.3,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:15.8,IND,Chennai,Android 9,MIUI Browser Dev 11.2.4,Xiaomi Redmi Note 5 Pro
+India,24-29,6,6.5,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",02:14.8,IND,Chandkheda,Android 9,Chrome Dev 78.0.3904.96,Nokia 7.1
+India,24-29,4,5.23,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",01:14.8,USA,Olympia,Android 10,Chrome Dev 78.0.3904.90,Google Pixel XL
+US,24-29,10,12,Gmail,Productivity ,"Productivity - Gmail, Evernote etc",00:59.1,USA,Lyndhurst,Android 9,Chrome Dev 78.0.3904.96,Redmi Note 7 Pro
+India,18-23,4,5,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",01:07.8,USA,New York,Android 8.1.0,Chrome Dev 78.0.3904.90,Xiaomi Redmi Note 5
+India,18-23,6,8,Uber,Lifestyle,"Lifestyle - Uber, Yelp, Tinder etc",01:37.7,XXX,Unknown,Android 9,Chrome Dev 78.0.3904.96,SM-G973F
+India,24-29,7.3,7.3,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",00:59.5,IND,Pune,Android 9,Chrome Dev 78.0.3904.96,RMX1801
+India,18-23,5,5,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",02:19.7,IND,Bani,Android 8.1.0,Samsung Internet 10.1,Samsung SM-J610F
+US,18-23,4.3,5.3,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",00:05.3,IND,Unknown,Android 8.0.0,,Huawei Honor 9i
+India,18-23,5.3,4.3,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",00:36.7,IND,Unknown,Android 8.0.0,,Huawei Honor 9i
+India,24-29,6,5,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",00:42.7,IND,Thane,Android 9,Chrome Dev 78.0.3904.96,OnePlus 5
+India,24-29,4,4,Twitter,Social,"Social - Instagram, Facebook, Wechat etc",00:21.3,USA,Seattle,Android 10,Chrome Dev 78.0.3904.96,Pixel 4 XL
+India,18-23,8.3,12,What's up,Social,"Social - Instagram, Facebook, Wechat etc",01:25.3,IND,Unknown,Android 8.1.0,Chrome Dev 78.0.3904.90,CPH1823
+China,24-29,4,4.75,QQ,Social,"Social - Instagram, Facebook, Wechat etc",00:07.3,IND,Bengaluru,Android 6.0,Chrome Dev 74.0.3729.157,Lenovo Vibe K5 Note
+India,18-23,3,4.5,PUBG,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",00:15.3,IND,Unknown,Android 9,MIUI Browser Dev 11.2.4,Xiaomi Redmi Note 5 Pro
+India,18-23,4,5.5,Netflix,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",00:22.5,IND,Unknown,Android 9,Chrome Dev 78.0.3904.62,SM-J600GF
+India,24-29,7,6,PUBG,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",01:46.6,IND,Mumbai,Android 9,MIUI Browser Dev 11.2.4,Redmi Note 7 Pro
+India,24-29,6,7,You tube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",01:02.3,IND,Howrah,Android 9,Chrome Dev 78.0.3904.90,Infinix X604B
+India,24-29,5,5,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:03.7,IND,Unknown,Android 9,Chrome Dev 75.0.3770.101,ONEPLUS A6010
+India,24-29,6,6.3,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",00:09.0,IND,Bengaluru,Android 10,Chrome Dev 78.0.3904.96,GM1911
+India,24-29,2,2.4,LinkedIn,Social,"Social - Instagram, Facebook, Wechat etc",01:54.4,USA,Bellevue,Android 9,Chrome Dev 78.0.3904.62,Xiaomi Redmi Note 5 Pro
+US,24-29,1.35,9.37,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:22.7,USA,Bellevue,iOS 13.2.2,Safari,Apple iPhone
+India,18-23,6.3,5,YouTube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",01:12.2,IND,Delhi,Android 9,Chrome Dev 77.0.3865.92,GM1901
+India,24-29,4.3,5.5,TWITTER,Social,"Social - Instagram, Facebook, Wechat etc",03:26.7,IND,Delhi,Android 9,Chrome Dev 78.0.3904.90,SM-J610F
+India,18-23,1,2.4,Youtube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",00:53.9,IND,Indore,Android 9,Chrome Dev 78.0.3904.90,Redmi Note 7 Pro
+India,18-23,4.3,4,Quora,Productivity ,"Productivity - Gmail, Evernote etc",01:09.2,IND,Unknown,Android 7.0,MIUI Browser Dev 11.2.4,Xiaomi Redmi Note 4
+India,18-23,4,4.1,Chrome,Utilities,"Utilities - Calendar, Calculator Maps etc",01:56.4,IND,Unknown,Android 8.1.0,Chrome Dev 78.0.3904.96,Moto G (5S
+India,18-23,3,2.3,What's app,Social,"Social - Instagram, Facebook, Wechat etc",05:12.2,IND,Unknown,Android 9,Chrome Dev 78.0.3904.90,ASUS_X01AD
+India,18-23,10.3,8,Netflix,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",01:32.3,IND,Vadasinor,Android 9,Chrome Dev 70.0.3538.80,CPH1969
+India,18-23,4,8,YouTube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",07:38.3,IND,Delhi,Android 9,Chrome Dev 78.0.3904.62,Xiaomi Redmi Note 5 Pro
+India,18-23,7.3,6.2,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",01:38.9,IND,Unknown,Android 9,MIUI Browser Dev 11.2.4,Redmi Note 6 Pro
+India,18-23,5,5,YouTube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",02:04.4,IND,Adaun,Android 7.0,Chrome Dev 78.0.3904.90,Xiaomi Redmi Note 4
+India,18-23,4.3,4.3,Pubg,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",25:54.2,IND,Mansarovar,Android 9,Chrome Dev 78.0.3904.96,SM-A505F
+India,18-23,4.3,6,Youtube,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",04:52.4,IND,Vadodara,Android 5.0,Chrome Dev 77.0.3865.92,Samsung Galaxy Note 3
+India,18-23,4,5.1,LinkedIn,Social,"Social - Instagram, Facebook, Wechat etc",01:35.3,IND,Delhi,Android 8.1.0,Chrome Dev 77.0.3865.92,Xiaomi Redmi Note 5 Pro
+India,18-23,6,6,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:52.6,IND,Unknown,Linux,Chrome Dev 78.0.3904.97,
+India,24-29,3,4,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",01:46.9,IND,Bengaluru,Android 5.0,Chrome 63,Micromax AQ5001 Canvas Juice 2
+India,24-29,5,5.5,Facebook,Social,"Social - Instagram, Facebook, Wechat etc",01:16.1,USA,Bremerton,Android 9,Chrome Dev 78.0.3904.96,Samsung Galaxy Note 9
+India,24-29,7,6.5,Instagram,Social,"Social - Instagram, Facebook, Wechat etc",00:52.9,IND,New Delhi,iOS 13.1.3,Safari,Apple iPhone
+India,24-29,8,7,WhatsApp,Social,"Social - Instagram, Facebook, Wechat etc",04:38.4,IND,Hadapsar,Android 8.1.0,Chrome Dev 78.0.3904.96,Moto G (5
+India,30-35,6.3,6,Whatsapp,Social,"Social - Instagram, Facebook, Wechat etc",01:25.0,IND,Unknown,Android 9,Chrome 53,CPH1938
+India,30-35,5,5,LinkedIn,Social,"Social - Instagram, Facebook, Wechat etc",02:03.7,IND,Unknown,Android 7.1.1,Chrome Dev 77.0.3865.116,Xiaomi Redmi Note 5 Pro
+India,30-35,4.3,4.3,Swiggy,Lifestyle,"Lifestyle - Uber, Yelp, Tinder etc",00:34.9,IND,Delhi,iOS 12.4.2,Safari,Apple iPhone
+China,30-35,4.32,4.4,Weibo,Social,"Social - Instagram, Facebook, Wechat etc",,weibo,,,,
+China,24-29,6,6.2,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,wechat,,,,
+China,18-23,6.31,5,QQ,Social,"Social - Instagram, Facebook, Wechat etc",,QQ,,,,
+China,18-23,5.3,6.42,Sina Weibo,Social,"Social - Instagram, Facebook, Wechat etc",,??.??.,,,,
+China,18-23,5.19,5.93,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,30-35,5.3,5.3,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,????,,,,
+China,18-23,8.43,9.44,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,Wechat,,,,
+China,24-29,1.3,2,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,47 and above,3,3,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,18-23,1.57,6.8,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,18-23,7.5,6.6,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,Wechat,,,,
+China,18-23,8.21,8.21,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,18-23,3.35,6.2,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,18-23,3,4,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,18-23,8.17,7.11,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,wechat,,,,
+China,42-47,8.5,10.5,Iqiyi,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",,???,,,,
+China,18-23,5.02,5.07,google chrome,Utilities,"Utilities - Calendar, Calculator Maps etc",,???,,,,
+China,24-29,12,12.4,Weichat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,24-29,7,9,Wechat,Social,"Social - Instagram, Facebook, Wechat etc",,??,,,,
+China,24-29,9,7,Bilibili,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",,Bilibili,,,,
+China,18-23,2,2.2,Honor of Kings,Game/ Entertainment,"Game/ Entertainment - Netflix, PubG, Youtube etc",,????,,,,
+China,30-35,8.25,6.3,Dingding,Productivity ,"Productivity - Gmail, Evernote etc",,?????,,,,
