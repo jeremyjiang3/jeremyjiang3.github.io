@@ -1,0 +1,333 @@
+---
+title: "Midterm2 Code"
+author: "Sheng & Amal"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
++ This observational study is designed to: \
+    a.Characterize smartphone usage by measuring average screen-time for different age groups\
+    b.Find the pattern of smartphone usage with association to ethnicity in two particular groups: Chinese and Indian at Northeastern University, Seattle. \
++ The goal of this observational study is to provide estimations for these questions below: \
+    1.What is average screen-time do people spend on mobile phone?\
+    2.How screen-time changes among different age groups?\
+    3.What type of apps do Chinese and Indian use most often during their screen-time?\
+    4.Is there a difference in the screen-time per day between Chinese and Indian as two ethnicity groups?\
+    
+## Variable Definition: 
+
+**Screen-time (hours.mins):** \
+The type of the variable: Numeric variable in decimal; Response variable; Quantitative continuous variable.\
+The scale of the variable: Screen-time is ranged from 0 to 24 hours per day.\
+
+**Applications categories:**\
++ It is the categorical variable which we will use to find out the screen time  between two ethnicities i.e. Indian and chinese.\
+The type of the variable: Categorical variable; Explanatory variable;Ordinal variable .\
++ The scale of the variable: This study set 7 general categories for participants to pick from 2 ethnicities. \
+
+**Age groups:**\
+The type of the variable: Categories variable; Explanatory variable;Ordinal variable.\
+The scale of the variable: Participants has to be in one of these age groups. \
+
+**Ethnicity:**\
+The type of the variable: Categories variable, Explanatory variable, Ordinal variable.\
+The scale of the variable: Participants are either Chinese or Indian. \
+
+**Sampling Strategy:**\
++ First, We randomly gather data for 90 sample of the accessible population as potential participants.\
++ Secondly, We uses sample frame to rule out data points from unqualify participants and make sure enough coverage of the sample to the population. From the survey collection, We will collect  each survey respondent’s ethnicity, screen-time for last 24 hours, average screen-time for past 10 days, most-used categories of apps,most-used app name.\
++ Thirdly, analysts uses stratified sampling strategy for statistic analysis. Stratified sampling divides potential participants into two ethnicity groups. It randomly selects 32 survey respondents from Chinese group and 32 survey respondents from Indian group for two ethnicity groups comparison.\
+
+## Data Sampling
+```{r pressure, echo=FALSE}
+install.packages("ggplot2")
+install.packages("mosaic")
+install.packages("Sleuth3")
+library(ggplot2)        # plotting & data
+library(dplyr)          # data manipulation
+library(mosaic)
+library(Sleuth3)
+# Loading Survey data in RStudio
+Survey_Data <- read.csv("/cloud/project/Survey_Data.csv")
+summary(Survey_Data)
+```
+
+# Exploratory Analysis
+
++ We Explored data for App category and its usage based on country to get the distribution. We got the visibility of most popular Appilcation category among different countries 
+
+```{r}
+# Exploratory Analysis
+# We Explored data for App category and its usage based on country to get the distribution. We got the visibility of most popular Appilcation category among different countries
+table(Survey_Data$App.Category, Survey_Data$Country)
+```
+
++ Here we explored data from different prispective to get the distribution of 3 ethicities among different age group
+```{r}
+# Here we explored data from different prispective to get the distribution of 3 ethicities among different age group
+table(Survey_Data$Age , Survey_Data$Country)
+```
+
++ We further analysed data to check the average screen time among different ethnicities and how data is distributed which will give us rough pattern about the sample population mobile usage
+
+```{r}
+# Average Screen time distribution
+ggplot(Survey_Data, aes(x=Survey_Data$Average.Screen.time.last.10.days, color=Survey_Data$Country)) +
+  geom_histogram(fill="white", position="dodge", bins = 10)+
+  theme(legend.position="bottom") + labs(x = "Average Screen Time", color = "Legend: Country wise average screen time")
+```
+
++ Above distribution is unexpected as the study were expecting a difference in screen time between different age groups. However, Interesting fact is that data age group 18-23 and 24-29 constitutes around 87% of the sample 
+
+```{r}
+# Age Group Vs Average Screen time 
+ggplot(Survey_Data, aes(x = Survey_Data$Age, y = Survey_Data$Average.Screen.time.last.10.days, color = factor(Survey_Data$Country))) +
+  geom_point() +
+  labs(x = "Age-Group", y = "Average Screen Time", color = "Legend: Country wise average screen time")+ theme(legend.position = "bottom")
+```
+
+After ploting percentage contribution of People from different ethnicities we decided to focused more in identifying screen time pattern among 2 ethicities i.e. Indian And Chinese 
+```{r}
+# Sample distribution among Age-group 
+ggplot(Survey_Data, aes(x = Survey_Data$Age, fill = Survey_Data$Country)) +
+  geom_bar() +   labs(x = "Age-Group", y = "No of people", 
+                      color = "Legend: Country wise count")+ theme(legend.position = "bottom")
+```
+
+```{r}
+# Ethnicities wise Screen time comparison
+boxplot( Survey_Data$Average.Screen.time.last.10.days~Survey_Data$Country, ylab = 'Average Screen Time', xlab = 'Country', main = 'Ethnicitieswise screen time comparison', col = 'skyblue')
+```
+
++ This study found that median of screen-time median for Chinese (6.20) sample is higher than the Indian (5.10). Chinese group has an average screen-time 6.09 hours (IQR 4.487 to 7.082) and Indian group has an average screen-time 5.361 hours (IQR 4.30 to 6.30). All these data are interlinked and is important for our study as it provides the basis for statistical analysis. The pattern needs to be further studied and analyzed if there is a difference in average screen-time between these two ethnicities.
+
+```{r}
+# App category Vs Average screen time : Screen Time here shows its usage across app categories along with outliers to get more visibility
+ggplot(Survey_Data, aes(x = Survey_Data$App.Category, y = Survey_Data$Average.Screen.time.last.10.days)) +
+    geom_boxplot() + guides(fill = TRUE) +
+     theme(axis.text.x = element_text(angle = 65, vjust=0.5, hjust=0.5))+ labs(x = "App Category", y = "Average Screen Time")
+```
+
++ Relation between app category and Average screen time is most interesting and is presented in figure no (iv). It shows that out of 90 data points collected, 63 is from Social category which stands for almost 70% of the whole sample. Also 2 outliers spend excessive amount of screen-time in this category. Further, It shows that Lifestyle and Productivity has the highest median around 6.15 hours whereas utilities has the lowest median which is 3.55 hours. Social being most populous has median of 5.50 hours
+
+
+```{r}
+pairs(Survey_Data$Average.Screen.time.last.24.hour~Survey_Data$Age, col = Survey_Data$Country)
+```
+
+
+# Statistical Analysis
+
+Before statistical analysis on two ethnicity groups comparison. Analysts choose the **stratified sampling strategy** as a method to filter out irrelevant data and creates equal-quantity data comparison. Firstly, this strategy filters out the US ethnicity group as it is irrelevant to this part of analysis. Secondly, this strategy divides remaining data into two ethnicity groups which are Chinese and Indian. Then it randomly selects 32 data from Chinese group and 32 data from Indian group for comparison. Finally these two 32-data-point groups will be used for two-sample analysis. Through this stratified sampling strategy, the analysis is more randomized and less selection biased.\
+Analyst uses two sample t-test for difference in means  rather than difference in proportions because this study focuses on comparing average screen-time per day between Indian and Chinese. This study analyzes on one continuous quantitative variable and one category variable. The continuous quantitative variable is the average screen-time for past over 10 days, and the category variable is ethnicity: Chinese or Indian. 
+**Question of Interest:**\
+    Is there a difference in the average screen-time per day between Indian and Chinese?\
+    **Statistic test:** Two sample approach T-test.
+**Condition and Requirement**\
+  Is the sample representative of the population?\
+  *The sample cannot surely be the representative of the population. Because the ratio of Chinese true population versus Indian true population cannot be sure, and true population of these two groups is also unknown. + Question of interest has to do with the difference of means between two populations.
+The question of interest is correlated to the difference of means between Chinese and Indian group\
+  2 independent samples from 2 populations. \ 
+  *Chinese and Indian are two independent samples from two populations for this analysis.
+  The population data must be normally distributed.\
+  *QQ plots shows both sample data are nearly normal distributed.
+  *Sample size is 32 of each sample which is larger than 30.
+
+```{r}
+# Statistical Analysis
+# Sampling data for 32 Indians and Chinese for calculating average screen time
+library(dplyr)
+set.seed(0)
+India <- filter(Survey_Data, Survey_Data$Country == "India")
+India_2 <- India[sample(nrow(India),32),]
+
+China <- filter(Survey_Data, Survey_Data$Country == "China")
+China_2 <- China[sample(nrow(China),32),]
+
+sampledata <- rbind(China_2,India_2)
+sampledata
+
+# Summary for Mean & median for sample population
+summary(sampledata)
+
+```
+
+## QQ Plot
++ A Normal Q-Q Plot helps us to visualize whether our sample data is normally distributed or not.
+```{r}
+# QQ Plot
+qqnorm(Survey_Data$Average.Screen.time.last.10.days)
+qqnorm(India_2$Average.Screen.time.last.10.days)
+qqnorm(China_2$Average.Screen.time.last.10.days)
+```
+Data in our sample is not perfectly normally distributed but they are close  
+
+
+**Hypothesis:**\
+  *$\mu_c-\mu_i=0$\
+      *The true population mean screen-time for Indian is equal to the true population mean screen-time for Chinese.\
+
+  *$\mu_c-\mu_i \neq 0$\
+    *The true population mean screen-time for Indian is different to the true population mean screen-time for Chinese.\
+
+**Sample Statistic**\
+$$\overline{x_c}-\overline{x_i}$$
+
+## Sample Mean
++ Here $\overline{x_i}$ = X_bar_i = Average screentime of Indian Sample
++ Here $\overline{x_c}$ = X_bar_c = Average screentime of Chinese Sample
+```{r}
+# Sample Mean
+X_bar_i <- mean(India_2$Average.Screen.time.last.10.days)
+X_bar_c <- mean(China_2$Average.Screen.time.last.10.days)
+X_bar_i
+X_bar_c
+```
+
+## Sample variance
++ Here $s^2_i$ = s_i = variance of Indian Sample
++ Here $s^2_c$ = s_c = variance screentime of Chinese Sample
+```{r}
+# Sample Variance
+s_i <- sd(India_2$Average.Screen.time.last.10.days)**2
+s_c <- sd(China_2$Average.Screen.time.last.10.days)**2
+s_i
+s_c
+```
+
+## Sample size
++ Here $n_i$ = n_i = size of Indian Sample
++ Here $n_c$ = n_c = size screentime of Chinese Sample
+```{r}
+# Sample Size
+n_i <- length(India_2$Average.Screen.time.last.10.days)
+n_c <- length(China_2$Average.Screen.time.last.10.days)
+n_i
+n_c
+```
+
+## Null Hypothises
+
+```{r}
+#Null Hypothises
+mu <- 0
+```
+
+## T test
+
+**Test Statistic**
+$$t_{min(n_i-1,n_c-1)}=\frac{(\overline{x_c}-\overline{x_i})-(\mu_c-\mu_i)}{\sqrt{\frac{s_i^2}{n_i}+\frac{s_c^2}{n_c}}}$$
+
+```{r}
+# T Test
+t <- (X_bar_c - X_bar_i - mu)/sqrt((s_i/n_i) + (s_c/n_c))
+t
+```
+
+## p-value for two sided upper
+
+```{r}
+# p-value for two sided upper
+two_sided_diff <- pt(q=t, df = min(n_c, n_i)-1, lower.tail = FALSE) * 2
+two_sided_diff
+```
+
+## Alpha
+```{r}
+Alpha <- 0.05
+Confidence_Interval <- 0.95
+```
+
+
+## Confidence Interval
+
+```{r}
+# Lower Bound
+L_bound <- (X_bar_c - X_bar_i) + (qt(0.025, min(n_c, n_i)-1)* sqrt((s_i/n_i) +(s_c/n_c)))
+L_bound
+```
+
+```{r}
+# Upper Bound
+U_bound <- (X_bar_c - X_bar_i) + (qt(0.975, min(n_c, n_i)-1)* sqrt((s_i/n_i) +(s_c/n_c)))
+U_bound
+```
+
+## Compare to R built in t-test function
+
+```{r}
+# R built in t-test function
+t.test(India_2$Average.Screen.time.last.10.days, China_2$Average.Screen.time.last.10.days)
+```
+
+## Interpretation
+
+From the computation,  analysts found that there is no evidence (p-value=0.3856217) to suggest that the true population mean screen-time for Chinese is different than Indian. We fail to reject the null hypothesis that there is no difference true mean screen-time between Chinese and Indian at the level $\alpha=0.05$. With 95% confidence, the true difference in mean screen-time between Chinese and Indian is between -0.7069666 and 1.780092. The null hypothesized difference between the mean screen-time is zero and zero is in the 95% confidence interval which agree with our failure to reject the null hypothesis.\
+
+```{r}
+histogram(~ Survey_Data$Average.Screen.time.last.10.days | Survey_Data$Country,  xlab = 'Average screen time')
+histogram (India_2$Average.Screen.time.last.10.days,  xlab = 'Average screen time')
+histogram(China_2$Average.Screen.time.last.10.days,  xlab = 'Average screen time')
+```
+
+## Histogram of the sampling distribution
+
+```{r}
+# Histogram of the sampling distribution
+mu <- mean(sampledata$Average.Screen.time.last.10.days)
+sd <- sd(sampledata$Average.Screen.time.last.10.days)
+h <- hist(sampledata$Average.Screen.time.last.10.days, xlim = c(0,13), xlab = 'Average screen time', main = 'Histogram of sampling distribution')
+lb <- mu - 1.96*sd
+ub <- mu + 1.96*sd
+abline(v = c(mu, lb, ub), lty = 2)
+x_axis <- seq(min(sampledata$Average.Screen.time.last.10.days),max(sampledata$Average.Screen.time.last.10.days),length=64)
+y_axis <- dnorm(x_axis, mu, sd)*length(x_axis)
+lines(x_axis, y_axis, col = "blue")
+```
+
+## T- Test distribution graph
+
+```{r}
+# T- Test distribution graph
+n <- min(n_c, n_i)
+X <- seq(-4, 4, .01)
+Y <- dt(X, n-1)
+plot(X, Y, type = 'l')
+abline(v = c(t, -t),  col = "blue")
+```
+## Confidence Interval graph
+```{r}
+# Confidence Interval graph
+plot(X, Y, type = 'l')
+abline(v = qnorm(0.975), col = "Green")
+abline(v = qnorm(0.025), col = "Green")
+abline(v = 0, col = "black")
+```
+
+## Difference between normal distribution & T distribution
+```{r}
+# Difference between normal distribution & T distribution
+plot(X,Y,type = 'l')
+lines(X,dnorm(X), col = 'yellow')
+```
+
+
+
+## Appendix
+```{r ref.label=knitr::all_labels(), echo = T, eval=F}
+```
+
+```{r}
+Survey_Data
+sampledata
+```
+
+
+
+
+
